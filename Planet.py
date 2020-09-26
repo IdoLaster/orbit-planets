@@ -41,6 +41,12 @@ class Planet():
 		Returns:
 			np.array: [Fx, Fy] The graivitonal force that applies to self.
 		"""
+		if planet_other == None:
+			raise ValueError("planet_other cannot be None")
+
+		if np.array_equal(self.pos, planet_other.pos):
+			raise ZeroDivisionError("Planets collision!")
+
 		direction = (self.pos - planet_other.pos ) * -1
 		
 		distance = np.linalg.norm(direction)
