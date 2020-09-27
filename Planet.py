@@ -65,5 +65,7 @@ class Planet():
 		Args:
 			force (np.array): [Fx, Fy] The force to apply to self.
 		"""
+		if force is None:
+			raise ValueError("Force can't be None!")
 		f = force / self.mass
 		self.velocity = self.velocity + f
