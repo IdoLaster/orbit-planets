@@ -69,3 +69,8 @@ class Planet():
 			raise ValueError("Force can't be None!")
 		f = force / self.mass
 		self.velocity = self.velocity + f
+
+	def clicked_on(self, pos):
+		d = np.sqrt(np.sum(np.power(pos - self.pos, 2)))
+
+		return d < self.radius
