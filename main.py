@@ -75,10 +75,11 @@ def main():
 			tmp_planets = planets.copy()
 			tmp_planets.remove(planet)
 
-			forces = list(map(planet.get_gravity_force, tmp_planets))
+			forces = map(planet.get_gravity_force, tmp_planets)
 			for force in forces:
 				planet.apply_force(force)
-				planet.update()
+			
+			planet.update()
 				
 		# Draw all planets and relative labels (labels are temporary).
 		for planet in planets:
@@ -98,6 +99,10 @@ def main():
 				screen.blit(mass_label, (0, FONT_SIZE))
 				screen.blit(position_label, (0, FONT_SIZE * 2))
 				screen.blit(velocity_label, (0, FONT_SIZE * 3))
+
+		# Draw a label for the graivitonal constant
+		G_label = font.render(f"G: {Planet.G}", False, WHITE)
+		screen.blit(G_label, (width - G_label.get_width(), 0))
 
 		# Update screen.
 		pygame.display.flip()
