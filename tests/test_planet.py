@@ -1,6 +1,9 @@
 import numpy as np
 
 import unittest
+import sys
+
+sys.path.append("../")
 
 from Planet import Planet
 
@@ -99,5 +102,12 @@ class TestPlanet(unittest.TestCase):
 		self.assertAlmostEqual(expected_px, calc_px)
 		self.assertAlmostEqual(expected_py, calc_py) 
 
+	def test_clicked_on(self):
+		"""
+		A test to make sure clicked_on is working correctly.
+		"""
+		self.assertTrue(self.mock_planet1.clicked_on(np.array((1,0))))
+		self.assertFalse(self.mock_planet2.clicked_on(np.array((7,0))))
+	
 if __name__ == "__main__":
 	unittest.main()

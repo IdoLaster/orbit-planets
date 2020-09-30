@@ -69,3 +69,18 @@ class Planet():
 			raise ValueError("Force can't be None!")
 		f = force / self.mass
 		self.velocity = self.velocity + f
+
+	def clicked_on(self, pos):
+		"""
+		Takes in a position and returns true if the position is inside
+		the planet radius.
+
+		Args:
+			pos (np.array): The position we would like to check
+
+		Returns:
+			Boolean: True if we are inside the planet radius.
+		"""
+		d = np.sqrt(np.sum(np.power(pos - self.pos, 2)))
+
+		return d < self.radius
