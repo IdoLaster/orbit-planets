@@ -53,6 +53,7 @@ def main():
 
 	planets = create_planets()
 	highlighted_planet = None
+	plus_minus = 1
 
 	# Game loop.
 	while True:
@@ -64,7 +65,9 @@ def main():
 				sys.exit()
 			elif event.type == MOUSEBUTTONDOWN and event.button == LEFT:
 				highlighted_planet = handle_left_click(planets)
-		
+			elif event.type == KEYDOWN:
+				handle_keyboard_input(event.key, plus_minus, highlighted_planet)
+				
 		# Calculate force and apply force.
 		for planet in planets:
 			'''
@@ -100,9 +103,12 @@ def main():
 				screen.blit(position_label, (0, FONT_SIZE * 2))
 				screen.blit(velocity_label, (0, FONT_SIZE * 3))
 
-		# Draw a label for the graivitonal constant
+		# Draw a label for the graivitonal constant and the plus minus variable
 		G_label = font.render(f"G: {Planet.G}", False, WHITE)
 		screen.blit(G_label, (width - G_label.get_width(), 0))
+
+		plus_minus_label = font.render(f"\u00B1: {plus_minus}", False, WHITE)
+		screen.blit(plus_minus_label, (width - plus_minus_label.get_width(), height - plus_minus_label.get_height()))
 
 		# Update screen.
 		pygame.display.flip()
@@ -121,6 +127,17 @@ def handle_left_click(planets):
 	for planet in planets:
 		if planet.clicked_on(np.array(pygame.mouse.get_pos())):
 			return planet
-	
+
+def handle_keyboard_input(key, plus_minus ,highlighted_planet):
+	if highlighted_planet != None:
+		if key == K_LEFT:
+			highlighted_planet.velocity += np.array((-plus_minus, 0))
+		elif key == K_RIGHT:
+			highlighted_planet.velocity += np.array((plus_minus, 0))
+		elif key == K_UP:
+			highlighted_planet.velocity += np.array((0, -plus_minus))
+		elif key == K_DOWN:
+			highlighted_planet.velocity += np.array((0, plus_minus))
+
 if __name__ == "__main__":
 	main()
